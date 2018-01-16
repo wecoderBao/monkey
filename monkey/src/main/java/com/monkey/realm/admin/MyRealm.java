@@ -63,6 +63,7 @@ public class MyRealm extends AuthorizingRealm {
 //      simpleAuthorInfo.addStringPermissions(permissionList);  
         SimpleAuthorizationInfo simpleAuthorInfo = new SimpleAuthorizationInfo();  
         //实际中可能会像上面注释的那样从数据库取得  
+        System.out.println("===="+currentUsername);
         if(null!=currentUsername && "papio".equals(currentUsername)){  
             //添加一个角色,不是配置意义上的添加,而是证明该用户拥有admin角色    
             simpleAuthorInfo.addRole("admin");  
@@ -102,8 +103,11 @@ public class MyRealm extends AuthorizingRealm {
         //此处无需比对,比对的逻辑Shiro会做,我们只需返回一个和令牌相关的正确的验证信息  
         //说白了就是第一个参数填登录用户名,第二个参数填合法的登录密码(可以是从数据库中取到的,本例中为了演示就硬编码了)  
         //这样一来,在随后的登录页面上就只有这里指定的用户和密码才能通过验证  
-        if("papio".equals(token.getUsername())){  
-            AuthenticationInfo authcInfo = new SimpleAuthenticationInfo("papio", "papio", this.getName());  
+        System.out.println("username>>>>"+token.getUsername());
+        if("papio".equalsIgnoreCase(token.getUsername())){  
+        	//返回验证信息
+        	
+            AuthenticationInfo authcInfo = new SimpleAuthenticationInfo(token.getUsername(), token.getPassword(), this.getName());  
             this.setSession("currentUser", "papio");  
             return authcInfo;  
         }else if("big".equals(token.getUsername())){  
@@ -130,4 +134,5 @@ public class MyRealm extends AuthorizingRealm {
             }  
         }  
     }  
+    
 }

@@ -6,18 +6,26 @@
 		http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-4.0.xsd"
 	default-lazy-init="true">
 	<!-- 继承自AuthorizingRealm的自定义Realm,即指定Shiro验证用户登录的类为自定义的ShiroDbRealm.java -->
-	<bean id="myRealm" class="com.monkey.realm.MyRealm" />
+	<bean id="myRealm" class="com.monkey.realm.admin.MyRealm" />
 
 	<!-- 定义缓存管理器 -->
 	<bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager" />
 
-	<bean id="sessionManager"
+	<!-- <bean id="sessionManager"
 		class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
-		<!-- session的失效时长，单位毫秒 -->
+		session的失效时长，单位毫秒
 		<property name="globalSessionTimeout" value="600000" />
-		<!-- 删除失效的session -->
+		删除失效的session
 		<property name="deleteInvalidSessions" value="true" />
+		指定session 否则与servlet的session冲突
+		<property name="sessionIdCookie" ref="simpleCookie" />
+		<property name="sessionValidationSchedulerEnabled" value="true"/>
+		<property name="sessionValidationInterval" value="1000"/>
 	</bean>
+	<bean id="simpleCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+		<property name="name" value="JSESSID"/>
+		<property name="path" value="/"/>
+	</bean> -->
 
 	<!-- Shiro默认会使用Servlet容器的Session,可通过sessionMode属性来指定使用Shiro原生Session -->
 	<!-- 即<property name="sessionMode" value="native"/>,详细说明见官方文档 -->
@@ -27,7 +35,7 @@
 		<!-- 使用配置的缓存管理器 -->
 		<property name="cacheManager" ref="cacheManager"></property>
 		<!-- 会话管理 -->
-		<property name="sessionManager" ref="sessionManager" />
+		<!-- <property name="sessionManager" ref="sessionManager" /> -->
 	</bean>
 
 	<!-- Shiro主过滤器本身功能十分强大,其强大之处就在于它支持任何基于URL路径表达式的、自定义的过滤器的执行 -->

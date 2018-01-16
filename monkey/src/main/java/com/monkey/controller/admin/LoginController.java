@@ -22,10 +22,10 @@ public class LoginController {
 	@RequestMapping(value="login", method=RequestMethod.GET)
 	public String login(@RequestParam String username, @RequestParam String password,HttpServletRequest request) {
 		
-		String resultPageURL = "main";
+		String resultPageURL = "index";
 		
 		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
-		token.setRememberMe(true);
+		
 		System.out.println("token>>"+token.toString());
 		//获取当前subject
 		Subject currentUser = SecurityUtils.getSubject();
@@ -41,6 +41,7 @@ public class LoginController {
             System.out.println("对用户[" + username + "]进行登录验证..验证未通过,未知账户");  
             request.setAttribute("message_login", "未知账户");  
         }catch(IncorrectCredentialsException ice){  
+        	ice.printStackTrace();
             System.out.println("对用户[" + username + "]进行登录验证..验证未通过,错误的凭证");  
             request.setAttribute("message_login", "密码不正确");  
         }catch(LockedAccountException lae){  
