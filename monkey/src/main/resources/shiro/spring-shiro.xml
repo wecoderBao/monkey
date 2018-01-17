@@ -62,6 +62,7 @@
 				/main**=authc
 				/user/info**=authc
 				/admin/listUser**=authc,perms[admin:manage]
+				/view**=anon
 			</value>
 		</property>
 	</bean>

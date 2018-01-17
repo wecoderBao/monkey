@@ -8,5 +8,6 @@
 </head>
 <body>
 	<h1>index</h1>
+	<h2>${ redis }</h2>
 </body>
 </html>

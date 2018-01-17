@@ -103,7 +103,7 @@ public class MyRealm extends AuthorizingRealm {
         //此处无需比对,比对的逻辑Shiro会做,我们只需返回一个和令牌相关的正确的验证信息  
         //说白了就是第一个参数填登录用户名,第二个参数填合法的登录密码(可以是从数据库中取到的,本例中为了演示就硬编码了)  
         //这样一来,在随后的登录页面上就只有这里指定的用户和密码才能通过验证  
-        System.out.println("username>>>>"+token.getUsername());
+
         if("papio".equalsIgnoreCase(token.getUsername())){  
         	//返回验证信息
         	
